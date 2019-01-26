@@ -336,3 +336,6 @@ a:visited {
 .timeline-event-content .media p a {
   text-transform: lowercase;
 }
+.timeline-headline {
+  color:#FF823A;
+}

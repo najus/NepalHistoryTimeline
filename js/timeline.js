@@ -110,7 +110,7 @@
 		// add year
 		//html += '<p><b>Ano:</b> ' + item.year + '</p>';
 
-		html += '<p>' + item.headline + '</p>';
+		html += '<p class="timeline-headline">' + item.headline + '</p>';
 
 		// adding authors
 		html += this.addAuthors(item);
