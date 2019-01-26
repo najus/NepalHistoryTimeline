@@ -110,6 +110,8 @@
 		// add year
 		//html += '<p><b>Ano:</b> ' + item.year + '</p>';
 
+		html += '<p>' + item.headline + '</p>';
+
 		// adding authors
 		html += this.addAuthors(item);
 
