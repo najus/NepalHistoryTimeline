@@ -7,7 +7,7 @@
 
 	content = {
 
-		'decade': '1740 - 1770',
+		'decade': '1700',
 		'games': [
 			{
 		        'type': 'game', // game or console
@@ -102,6 +102,48 @@
 		        ],
 		        'references': [
 		            {'url': 'https://en.wikiversity.org/wiki/History_of_Nepal', 'caption': "Wikiversity"}
+		        ]
+			},
+			{
+		        'type': 'game',
+		        'name': 'Sino-Nepalese War',
+				'year': '1792',
+				'image_dir': 'sino_nepalese_war',
+		        'date': '01-01-1792', // Day, Month, Year
+		        'headline': 'Nepal launched multi-directional attacks on Tibet',
+		        'resume': [
+					'When Prithvi Narayan Shah launched an economic blockade on the Kathmandu Valley ',
+					'during his unification campaign, Jaya Prakash Malla of Kathmandu ',
+					'faced an economic crisis which he tried to alleviate by minting low quality coins ',
+					'mixed with copper. After Prithvi Narayan Shah successfully conquered the Kathmandu ',
+					'Valley in 1769, he reverted to minting pure silver coins. ',
+					'But by then the damage to the confidence of the Nepalese minted coins had already been done.',
+					'The Tibetans demanded that all the impure coins in circulation be replaced by pure silver ones, a demand ',
+					'that would place a huge financial burden on the newly founded Shah dynasty.',
+					'Prithvi Narayan Shah was not willing to bear such a huge loss in a matter ',
+					'for which he was not responsible, but was willing to vouch for the purity ',
+					'of the newly minted coins. <br>',
+
+					'On the plea of debased coins, Tibet had started to spread rumors that it was ',
+					'in a position to attack Nepal; and the Nepalese merchants in Tibet were likewise harassed. ',
+					'Thus, Nepal launched multi-directional attacks on Tibet.',
+
+					'After two invasions from Nepal, The Qing general Fukanggan then sent a proposal ',
+					'to the Government of Nepal for ratifying a peace treaty.',
+		        ].join(''),
+		 		'full_text': [
+		        ].join(''),
+		        'thumbnail': 'thumbnail_example.png',
+		        'main_img': {'name': 'main.png', 'caption': "Sino-Nepalese War"},
+		        'images': [
+		            {'name': 'main.png', 'caption': "Sino-Nepalese War"}
+		        ],
+		        'video_play': [
+		        ],
+		        'demos': [
+		        ],
+		        'references': [
+		            {'url': 'https://en.wikipedia.org/wiki/Sino-Nepalese_War', 'caption': "Wikipedia"}
 		        ]
 			}
 
