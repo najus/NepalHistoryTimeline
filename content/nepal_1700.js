@@ -2,7 +2,7 @@
 
 (function(){
 
-	var content_key = 'nepal_1740';
+	var content_key = 'nepal_1700';
 	var content = {};
 
 	content = {

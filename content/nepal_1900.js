@@ -2,12 +2,12 @@
 
 (function(){
 
-	var content_key = 'nepal_1770';
+	var content_key = 'nepal_1900';
 	var content = {};
 
 	content = {
 
-		'decade': '1800',
+		'decade': '1900',
 		'games': [
 		]
 	}
