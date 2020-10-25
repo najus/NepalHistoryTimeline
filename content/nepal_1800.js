@@ -33,6 +33,22 @@
 		        'references': [
 		            {'url': 'https://military.wikia.org/wiki/Bhimsen_Thapa', 'caption': "Military Wikia"}
 		        ]
+			},
+			{
+		        'type': 'game',
+		        'name': 'Nepalese troops lay siege to Kangra',
+				'year': '1809',
+				'image_dir': 'kangra',
+		        'date': '01-01-1809', // Day, Month, Year
+		        'headline': 'Nepalese troops lay siege to Kangra, farthest extent of Gurkha empire',
+		        'resume': [
+					'General Amar Singh Thapa moved farther west and during a three-year campaign defeated or bought off local princes as far as Kangra, the strongest fort in the hills. The Nepalese laid siege to Kangra until 1809, when Ranjit Singh, ruler of the Sikh state in the Punjab, intervened and drove the Nepalese army east of the Sutlej River.'
+		        ],
+		        'thumbnail': '',
+		        'main_img': {'name': 'kangra.jpeg', 'caption': "Kangra Fort"},
+		        'references': [
+		            {'url': 'http://countrystudies.us/nepal/11.htm', 'caption': "countrystudies Nepal"}
+		        ]
 			}
 		]
 	}
