@@ -49,6 +49,24 @@
 		        'references': [
 		            {'url': 'http://countrystudies.us/nepal/11.htm', 'caption': "countrystudies Nepal"}
 		        ]
+			},
+			{
+		        'type': 'game',
+		        'name': 'Anglo-Nepalese War',
+				'year': '1814',
+				'image_dir': 'anglo-war',
+		        'date': '01-01-1814', // Day, Month, Year
+		        'headline': 'Anglo-Nepalese War(1814 to 1816); results to Sugauli treaty which establishes Nepal\'s current boundaries and sows the seeds for political instability.',
+		        'resume': [
+					'The Anglo-Nepalese War (1814-16) was a total disaster for Nepal. According to the Treaty of Sagauli, signed in 1816, Nepal lost Sikkim, the territories west of the Kali River (Kumaon and Garhwal), and most of its lands in the Tarai. The British East India Company was to pay 200,000 rupees annually to Nepal to make up for the loss of revenues from the Tarai. Kathmandu was also forced to accept a British resident, which was extremely disturbing to the government of Nepal because the presence of a resident had typically preceded outright British conquest throughout India. In effect, the treaty proved to be less damaging, for the company soon found the Tarai lands difficult to govern and returned some of them to Nepal later in 1816, simultaneously abolishing the annual payments.',
+					'The return of Tarai territory was important for the survival of Nepal because the government relied on the area as a source of land grants, and it is doubtful that the country as it was then run could have survived without this source of endowments. The presence of the resident, too, turned out to be less difficult than first imagined because all later governments in Kathmandu took stringent measures to isolate him by restricting his movements and keeping a close eye on the people he met. Nevertheless, the glory days of conquest were over, and Nepal had been squeezed into the boundaries it still had in the early 1990s.'
+		        ],
+		        'thumbnail': '',
+		        'main_img': {'name': 'anglo-war.jpg', 'caption': "Anglo-Nepalese War"},
+		        'references': [
+					{'url': 'http://countrystudies.us/nepal/11.htm', 'caption': "countrystudies Nepal"},
+					{'url': 'https://en.wikipedia.org/wiki/Anglo-Nepalese_War', 'caption': "Wikipedia"}
+		        ]
 			}
 		]
 	}
