@@ -73,7 +73,12 @@
 		        'type': 'game',
 		        'name': 'Kot massacre',
 				'year': '1846',
+				'image_dir': 'jung-bahadur',
 		        'date': '09-14-1846', // Day, Month, Year
+		        'main_img': {'name': 'main.jpg', 'caption': "Jung Bahadur Rana, photographed in 1887 (public domain, via Wikimedia Commons)"},
+		        'images': [
+		            {'name': 'main.jpg', 'caption': "Jung Bahadur Rana, photographed in 1887 (public domain, via Wikimedia Commons)"}
+		        ],
 		        'headline': 'Jung Bahadur Rana seizes power in the Kot massacre, beginning 104 years of Rana rule',
 		        'resume': 'On the night of 14 September 1846, dozens of nobles and officers were killed in the courtyard of the Kot armoury in Kathmandu, in the chaos following the assassination of Gagan Singh Khawas. Jung Bahadur Kunwar emerged from the bloodshed as prime minister and commander-in-chief, and soon took the name Rana. He made the prime ministership hereditary in his own family, reduced the Shah king to a figurehead, and founded the Rana regime that would rule Nepal for the next 104 years.',
 		        'video_play': [
