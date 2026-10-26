@@ -63,11 +63,28 @@
 <button id="toTop" type="button" aria-label="Back to top">↑</button>
 
 <div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button id="lbClose" type="button" aria-label="Close">×</button>
-  <figure>
+  <div class="lb-progress" id="lbProgress" aria-hidden="true"></div>
+  <div class="lb-topbar">
+    <span id="lbCounter"></span>
+    <span class="lb-actions">
+      <button id="lbPlay" type="button" aria-label="Play or pause the story">▶</button>
+      <button id="lbClose" type="button" aria-label="Close">×</button>
+    </span>
+  </div>
+  <button class="lb-nav prev" id="lbPrev" type="button" aria-label="Previous photo">‹</button>
+  <figure class="lb-stage">
     <img id="lbImg" alt="">
-    <figcaption id="lbCap"></figcaption>
+    <figcaption class="lb-info">
+      <span id="lbEra" class="lb-era"></span>
+      <strong id="lbTitle"></strong>
+      <span id="lbDates" class="lb-dates"></span>
+      <span id="lbText" class="lb-text"></span>
+      <span id="lbCap" class="lb-cap"></span>
+    </figcaption>
   </figure>
+  <button class="lb-nav next" id="lbNext" type="button" aria-label="Next photo">›</button>
+  <div class="lb-strip" id="lbStrip" aria-label="All photos"></div>
+  <p class="lb-hint" data-i18n="lbHint">← → to browse · swipe on mobile · ▶ plays the whole story</p>
 </div>
 
 <script src="js/modern.js"></script>

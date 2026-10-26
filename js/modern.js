@@ -45,6 +45,7 @@
       searchPh: 'Search events…', all: 'All eras', readMore: 'Read more', readLess: 'Show less',
       refs: 'References', noResults: 'No events match your search.',
       footerText: 'A constantly evolving timeline of the history of Nepal. Photos: Wikimedia Commons (public domain / Creative Commons, credited on each image).',
+      lbHint: '← → to browse · swipe on mobile · ▶ plays the whole story',
       toggleLabel: 'नेपाली' },
     np: { brand: 'नेपाल इतिहास टाइमलाइन', overline: 'सन् १७४३ — आजसम्म · ई.सं. र वि.सं.',
       heroTitle: 'नेपालको <em>इतिहास</em>',
@@ -53,6 +54,7 @@
       searchPh: 'घटना खोज्नुहोस्…', all: 'सबै कालखण्ड', readMore: 'थप पढ्नुहोस्', readLess: 'कम देखाउनुहोस्',
       refs: 'सन्दर्भ', noResults: 'तपाईंको खोजसँग कुनै घटना मिलेन।',
       footerText: 'नेपालको इतिहासको निरन्तर विकसित टाइमलाइन। तस्विरहरू: विकिमिडिया कमन्स (सार्वजनिक डोमेन / क्रिएटिभ कमन्स, प्रत्येक तस्विरमा श्रेय दिइएको)।',
+      lbHint: '← → ले हेर्नुहोस् · मोबाइलमा स्वाइप गर्नुहोस् · ▶ ले पूरै कथा चलाउँछ',
       toggleLabel: 'English' }
   };
 
@@ -81,6 +83,11 @@
     if (lang === 'np') return 'वि.सं. ' + npNum(e.bs_year || '');
     return (e.bs_year || '') + ' BS';
   }
+  function listPhotos() {
+    return allEvents().filter(function (e) { return !!imgPath(e); })
+      .map(function (e) { return { event: e, src: imgPath(e), caption: caption(e) }; });
+  }
+  function stepIndex(i, dir, n) { return ((i + dir) % n + n) % n; }
   function imgPath(e) {
     if (!e.main_img) return '';
     var dir = e.image_dir || e.name.replace(/ /g, '').toLowerCase();
@@ -118,6 +125,7 @@
     html += '<span class="ghost" aria-hidden="true">' + (lang === 'np' ? npNum(e.year) : e.year) + '</span>';
     if (src) {
       html += '<figure class="photo"><img loading="lazy" src="' + src + '" alt="' + caption(e).replace(/"/g, '&quot;') + '" data-caption="' + caption(e).replace(/"/g, '&quot;') + '">';
+      html += '<span class="expand" aria-hidden="true">⤢</span>';
       html += '<figcaption>' + caption(e) + '</figcaption></figure>';
     }
     html += '<div class="card-body">';
@@ -162,7 +170,7 @@
     return html;
   }
 
-  var TL = { buildApp: buildApp, buildEvent: buildEvent, buildChips: buildChips, fmtAD: fmtAD, fmtBS: fmtBS, allEvents: allEvents, ERAS: ERAS, UI: UI, npNum: npNum };
+  var TL = { buildApp: buildApp, buildEvent: buildEvent, buildChips: buildChips, fmtAD: fmtAD, fmtBS: fmtBS, allEvents: allEvents, listPhotos: listPhotos, stepIndex: stepIndex, ERAS: ERAS, UI: UI, npNum: npNum };
   if (typeof window !== 'undefined') window.TL = TL;
 
   /* ------- Browser wiring (skipped under test harnesses) ------- */
@@ -219,6 +227,7 @@
       }
     });
     observeCards();
+    if (typeof lbEl !== 'undefined' && lbEl && !lbEl.hidden) { buildStrip(); showSlide(); }
   }
 
   document.getElementById('langToggle').addEventListener('click', function () {
@@ -243,17 +252,115 @@
       return;
     }
     var img = ev.target.closest('.photo img');
-    if (img) {
-      document.getElementById('lbImg').src = img.src;
-      document.getElementById('lbImg').alt = img.alt;
-      document.getElementById('lbCap').textContent = img.getAttribute('data-caption') || '';
-      document.getElementById('lightbox').hidden = false;
-    }
+    if (img) openLb(PHOTOS.findIndex(function (p) { return img.getAttribute('src') === p.src; }));
   });
-  function closeLb() { document.getElementById('lightbox').hidden = true; }
+
+  /* ------- Cinematic photo viewer (story mode) ------- */
+  var PHOTOS = listPhotos();
+  var lb = { i: 0, playing: false, timer: null, built: false };
+  var lbEl = document.getElementById('lightbox');
+  var SLIDE_MS = 6500;
+
+  function excerpt(e, lang) {
+    var head = lang === 'np' && e.headline_np ? e.headline_np : e.headline;
+    var body = lang === 'np' && e.resume_np ? e.resume_np : text(e.resume);
+    var s = head + ' — ' + body;
+    return s.length > 220 ? s.slice(0, 217).trim() + '…' : s;
+  }
+  function buildStrip() {
+    var strip = document.getElementById('lbStrip');
+    strip.innerHTML = PHOTOS.map(function (p, i) {
+      return '<button type="button" class="thumb" data-i="' + i + '" aria-label="' + p.event.year + '"><img loading="lazy" src="' + p.src + '" alt=""></button>';
+    }).join('');
+    document.getElementById('lbProgress').innerHTML = PHOTOS.map(function () {
+      return '<span class="seg"><span class="fill"></span></span>';
+    }).join('');
+    lb.built = true;
+  }
+  function showSlide() {
+    var p = PHOTOS[lb.i], e = p.event, era = eraOf(+e.year);
+    var img = document.getElementById('lbImg');
+    img.src = p.src;
+    img.alt = p.caption;
+    img.classList.remove('kb'); void img.offsetWidth; img.classList.add('kb');
+    var eraEl = document.getElementById('lbEra');
+    eraEl.textContent = era.name[state.lang] + ' · ' + (state.lang === 'np' ? era.yearsNp : era.years);
+    eraEl.style.background = era.color;
+    document.getElementById('lbTitle').textContent = (state.lang === 'np' && e.name_np ? e.name_np : e.name);
+    document.getElementById('lbDates').textContent = fmtAD(e, state.lang) + ' · ' + fmtBS(e, state.lang);
+    document.getElementById('lbText').textContent = excerpt(e, state.lang);
+    document.getElementById('lbCap').textContent = p.caption;
+    document.getElementById('lbCounter').textContent =
+      (state.lang === 'np' ? npNum(lb.i + 1) + ' / ' + npNum(PHOTOS.length) : (lb.i + 1) + ' / ' + PHOTOS.length);
+    document.querySelectorAll('#lbStrip .thumb').forEach(function (t, i) {
+      t.classList.toggle('active', i === lb.i);
+      if (i === lb.i && t.scrollIntoView) t.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    });
+    document.querySelectorAll('#lbProgress .seg').forEach(function (seg, i) {
+      var fill = seg.firstElementChild;
+      fill.className = 'fill' + (i < lb.i ? ' done' : '');
+      if (i === lb.i && lb.playing) { fill.classList.remove('run'); void fill.offsetWidth; fill.classList.add('run'); }
+    });
+    document.getElementById('lbPlay').textContent = lb.playing ? '❚❚' : '▶';
+  }
+  function scheduleNext() {
+    clearTimeout(lb.timer);
+    if (!lb.playing) return;
+    lb.timer = setTimeout(function () { lb.i = stepIndex(lb.i, 1, PHOTOS.length); showSlide(); scheduleNext(); }, SLIDE_MS);
+  }
+  function setPlaying(on) {
+    lb.playing = on;
+    lbEl.classList.toggle('playing', on);
+    showSlide();
+    scheduleNext();
+  }
+  function go(dir) { lb.i = stepIndex(lb.i, dir, PHOTOS.length); showSlide(); if (lb.playing) scheduleNext(); }
+  function openLb(i) {
+    if (i < 0) i = 0;
+    lb.i = i;
+    if (!lb.built) buildStrip();
+    lbEl.hidden = false;
+    document.body.style.overflow = 'hidden';
+    showSlide();
+  }
+  function closeLb() {
+    lbEl.hidden = true;
+    document.body.style.overflow = '';
+    setPlaying(false);
+  }
   document.getElementById('lbClose').addEventListener('click', closeLb);
-  document.getElementById('lightbox').addEventListener('click', function (ev) { if (ev.target === this) closeLb(); });
-  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') closeLb(); });
+  document.getElementById('lbPrev').addEventListener('click', function () { go(-1); });
+  document.getElementById('lbNext').addEventListener('click', function () { go(1); });
+  document.getElementById('lbPlay').addEventListener('click', function () { setPlaying(!lb.playing); });
+  document.getElementById('lbStrip').addEventListener('click', function (ev) {
+    var t = ev.target.closest('.thumb');
+    if (!t) return;
+    lb.i = +t.getAttribute('data-i');
+    showSlide();
+    if (lb.playing) scheduleNext();
+  });
+  lbEl.addEventListener('click', function (ev) { if (ev.target === lbEl) closeLb(); });
+  document.addEventListener('keydown', function (ev) {
+    if (lbEl.hidden) return;
+    if (ev.key === 'Escape') closeLb();
+    if (ev.key === 'ArrowRight') go(1);
+    if (ev.key === 'ArrowLeft') go(-1);
+    if (ev.key === ' ') { ev.preventDefault(); setPlaying(!lb.playing); }
+  });
+  var touchX = null;
+  lbEl.addEventListener('touchstart', function (ev) { touchX = ev.changedTouches[0].clientX; }, { passive: true });
+  lbEl.addEventListener('touchend', function (ev) {
+    if (touchX === null) return;
+    var dx = ev.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 42) go(dx < 0 ? 1 : -1);
+    touchX = null;
+  }, { passive: true });
+  // Hold to pause while playing
+  lbEl.addEventListener('pointerdown', function (ev) {
+    if (ev.target.closest('button') || !lb.playing) return;
+    clearTimeout(lb.timer);
+  });
+  lbEl.addEventListener('pointerup', function () { if (lb.playing) scheduleNext(); });
 
   var progress = document.getElementById('progress'), toTop = document.getElementById('toTop');
   window.addEventListener('scroll', function () {
