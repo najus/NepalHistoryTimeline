@@ -7,7 +7,7 @@ $(document).ready(function(){
 	$.timeliner({timelineContainer:'#timeline'});
 
 	// array of content
-	var content = [_content['nepal_1700'], _content['nepal_1800']];
+	var content = [_content['nepal_1700'], _content['nepal_1800'], _content['nepal_1900'], _content['nepal_2000']];
 
 	var timeline = new TimeLine('timeline', content);
 

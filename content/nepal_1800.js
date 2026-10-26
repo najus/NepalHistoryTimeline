@@ -68,6 +68,22 @@
 					{'url': 'https://en.wikipedia.org/wiki/Anglo-Nepalese_War', 'caption': "Wikipedia"}
 		        ]
 			}
+,
+			{
+		        'type': 'game',
+		        'name': 'Kot massacre',
+				'year': '1846',
+		        'date': '09-14-1846', // Day, Month, Year
+		        'headline': 'Jung Bahadur Rana seizes power in the Kot massacre, beginning 104 years of Rana rule',
+		        'resume': 'On the night of 14 September 1846, dozens of nobles and officers were killed in the courtyard of the Kot armoury in Kathmandu, in the chaos following the assassination of Gagan Singh Khawas. Jung Bahadur Kunwar emerged from the bloodshed as prime minister and commander-in-chief, and soon took the name Rana. He made the prime ministership hereditary in his own family, reduced the Shah king to a figurehead, and founded the Rana regime that would rule Nepal for the next 104 years.',
+		        'video_play': [
+		        ],
+		        'demos': [
+		        ],
+		        'references': [
+		            {'url': 'https://en.wikipedia.org/wiki/Kot_massacre', 'caption': "Wikipedia"}
+		        ]
+			}
 		]
 	}
 
