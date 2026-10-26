@@ -1,65 +1,75 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>History of Nepal — A Timeline, 1743 to Today</title>
+<meta name="description" content="A constantly evolving timeline of the history of Nepal: unification, the Rana century, democracy, civil war, republic, the 2015 earthquake, the 2025 Gen Z protests and the 2026 election. In English and नेपाली, with dates in AD and Bikram Sambat.">
+<link rel="icon" type="image/png" href="images/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/modern.css">
+<!-- Content data (unchanged format) -->
+<script src="content/nepal_1700.js"></script>
+<script src="content/nepal_1800.js"></script>
+<script src="content/nepal_1900.js"></script>
+<script src="content/nepal_2000.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SYMRHWQ73"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SYMRHWQ73');
+</script>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
 
-		<link rel="icon" type="image/png" href="images/favicon.ico">
+<header class="hero">
+  <div class="hero-top">
+    <span class="brand">🇳🇵 <span data-i18n="brand">Nepal History Timeline</span></span>
+    <button id="langToggle" type="button" aria-label="Switch language">नेपाली</button>
+  </div>
+  <p class="overline" data-i18n="overline">1743 — Today · AD &amp; Bikram Sambat</p>
+  <h1 id="heroTitle">History of <em>Nepal</em></h1>
+  <p class="lede" data-i18n="lede">How a patchwork of Himalayan kingdoms became a federal republic — in 22 moments, from Prithvi Narayan Shah to the Gen Z protests.</p>
+  <div class="stats">
+    <span><strong>22</strong> <span data-i18n="statEvents">events</span></span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span><strong>283</strong> <span data-i18n="statYears">years</span></span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span><strong>4</strong> <span data-i18n="statEras">eras</span></span>
+  </div>
+</header>
 
-		<title>Nepal History Timeline</title>
-		<link rel="stylesheet" href="css/main.css" type="text/css">
-		<link rel="stylesheet" href="css/timeliner-future.css" type="text/css" media="screen">
-		<link rel="stylesheet" href="css/venobox.css" type="text/css" media="screen">
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<nav class="controls" aria-label="Timeline controls">
+  <div class="chips" id="eraChips" role="group" aria-label="Filter by era"></div>
+  <label class="search">
+    <span class="sr-only" data-i18n="searchLabel">Search events</span>
+    <input id="searchBox" type="search" autocomplete="off">
+  </label>
+</nav>
 
-		<!-- Content Load -->
-		<script type="text/javascript" src="content/nepal_1700.js"></script>
-		<script type="text/javascript" src="content/nepal_1800.js"></script>
-		<script type="text/javascript" src="content/nepal_1900.js"></script>
-		<script type="text/javascript" src="content/nepal_2000.js"></script>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SYMRHWQ73"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
+<main id="app"></main>
+<p id="noResults" class="no-results" hidden></p>
 
-			gtag('config', 'G-7SYMRHWQ73');
-		</script>
+<footer>
+  <p data-i18n="footerText">A constantly evolving timeline of the history of Nepal. Photos: Wikimedia Commons (public domain / Creative Commons, credited on each image).</p>
+  <p><a href="https://github.com/najus/NepalHistoryTimeline" target="_blank" rel="noopener">GitHub</a> · <a href="https://sujanthapa.com" target="_blank" rel="noopener">sujanthapa.com</a></p>
+</footer>
 
-	</head>
-	<body>
+<button id="toTop" type="button" aria-label="Back to top">↑</button>
 
-		<div class="container">
-			<h1>History of Nepal</h1>
-			<h2><span class="step1">1740</span> <span class="step2">Until</span> <span class="step3">Today</span></h2>
-			<p class="lead">A constantly evolving timeline on the history of Nepal.</p>
+<div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lbClose" type="button" aria-label="Close">×</button>
+  <figure>
+    <img id="lbImg" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+</div>
 
-			<div id="timeline" class="timeline-container"></div>
-		</div><!-- /.container -->
-
-		<div class="project">
-			<i class="fa fa-github">
-				<a target="_blank" href="https://github.com/najus/NepalHistoryTimeline"> - GitHub Project</a>
-			</i>
-			<!-- Place this tag where you want the button to render. -->
-			<div class="github-btns-container">
-				<!-- github star button -->
-				<a class="github-button" href="https://github.com/najus/NepalHistoryTimeline" >Star</a>
-				<!-- github fork button -->
-				<a class="github-button" href="https://github.com/najus/NepalHistoryTimeline/fork" >Fork</a>
-			</div>
-		</div>
-
-		<!-- GLOBAL CORE SCRIPTS -->
-		<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
-		<script type="text/javascript" src="js/libs/jquery.min.js"></script>
-		<script type="text/javascript" src="js/libs/venobox.min.js"></script>
-		<script type="text/javascript" src="js/libs/timeliner.js"></script>
-
-		<script type="text/javascript" src="js/utils.js"></script>
-		<script type="text/javascript" src="js/timeline.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-
-
-	</body>
+<script src="js/modern.js"></script>
+</body>
 </html>
